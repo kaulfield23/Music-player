@@ -21,7 +21,7 @@ public class MusicPlayer {
     public void loadMusic(String song) {
 
         try {
-            File musicPath = new File("src/musicSample" + "/" + song + ".wav");
+            File musicPath = new File("C:/temp" + "/" + song + ".wav");
             if (musicPath.exists()) {
                 if (MusicPlayer.clip != null || MusicPlayer.clip == null) {
                     if (isPlaying) {
