@@ -18,15 +18,22 @@ public class MainFrame extends JFrame {
     JTextField searchField;
     static MusicPlayer musicPlayer = new MusicPlayer();
     static long pausedTime;
+    static JLabel[] songList;
+    static boolean reversed = false;
 
-    public void initialize(String[] arrOfSongs) {
+    public void initialize(String[] arrOfSongs, MainFrame myFrame) {
         // title
-        JLabel[] songList = new JLabel[arrOfSongs.length];
+        songList = new JLabel[arrOfSongs.length];
         JLabel playerTitle = new JLabel("Music player");
         playerTitle.setFont(mainFont);
         // search field
         JPanel searchForm = new JPanel();
         JButton searchBtn = new JButton("Search");
+        searchBtn.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                musicPlayer.searchSong(arrOfSongs, searchField.getText(), myFrame);
+            }
+        });
         searchField = new JTextField();
         searchField.setFont(mainFont);
 
@@ -53,6 +60,7 @@ public class MainFrame extends JFrame {
         for (JLabel item : songList) {
             listForm.add(item);
         }
+
         // North - title and search filed with search button
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new GridLayout(2, 1, 5, 5));
@@ -84,12 +92,15 @@ public class MainFrame extends JFrame {
                 musicPlayer.repeatSong();
             }
         });
-        JButton btnSort = new JButton("Sort A-Z");
+        JButton btnSort = new JButton(reversed == false ? "Sort Z-A" : "Sort A-Z");
         btnPause.setFont(mainFont);
 
         btnSort.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                playerTitle.setText("Sort A-Z");
+
+                reversed = !reversed;
+                btnSort.setText(reversed == false ? "Sort Z-A" : "Sort A-Z");
+                musicPlayer.sortSongs(arrOfSongs, myFrame, reversed);
             }
         });
 
@@ -119,11 +130,13 @@ public class MainFrame extends JFrame {
     }
 
     public static JLabel addPlaySongFunction(final JLabel songTitle) {
+        System.out.println(songTitle.getText() + " is song title");
 
         songTitle.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 pausedTime = 0;
                 String song = songTitle.getText();
+                System.out.println(songTitle.getText());
 
                 musicPlayer.loadMusic(song);
                 System.out.println(song + " is playing");

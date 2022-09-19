@@ -6,7 +6,7 @@ public class App {
 
         String[] arrSongs = musicPlayer.getArrSongs("C:/temp");
 
-        myFrame.initialize(arrSongs);
+        myFrame.initialize(arrSongs, myFrame);
 
     }
 }

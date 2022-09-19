@@ -1,8 +1,13 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.JOptionPane;
 
 public class MusicPlayer {
     static MusicPlayer player = new MusicPlayer();
@@ -77,6 +82,45 @@ public class MusicPlayer {
             listOfMusic[i] = fileName.replaceFirst("[.][^.]+$", "");
         }
         return listOfMusic;
+    }
+
+    public void sortSongs(String[] arrOfSongs, MainFrame myFrame, boolean reversed) {
+
+        Collections.reverse(Arrays.asList(arrOfSongs));
+        // if (reversed == false) {
+
+        // // Arrays.sort(MainFrame.songList);
+        // } else {
+        // Arrays.sort(arrOfSongs, Collections.reverseOrder());
+        // }
+
+        myFrame.initialize(arrOfSongs, myFrame);
+
+    }
+
+    public void searchSong(String[] arrOfSongs, String input, MainFrame myFrame) {
+        boolean found = false;
+        String searchedSong[];
+        try {
+            for (int i = 0; i < arrOfSongs.length; i++) {
+                if (arrOfSongs[i].equals(input)) {
+                    System.out.println(arrOfSongs[i]);
+                    searchedSong = new String[1];
+                    searchedSong[0] = arrOfSongs[i];
+                    myFrame.initialize(searchedSong, myFrame);
+                    found = true;
+
+                }
+            }
+            if (!found) {
+                JOptionPane.showMessageDialog(null, "No result! Try again");
+            }
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+        }
+
     }
 
 }
