@@ -4,7 +4,7 @@ public class App {
         MainFrame myFrame = new MainFrame();
         MusicPlayer musicPlayer = new MusicPlayer();
 
-        String[] arrSongs = musicPlayer.getArrSongs("C:/temp");
+        String[] arrSongs = musicPlayer.getArrSongs("src/musicSample");
 
         myFrame.initialize(arrSongs, myFrame);
 

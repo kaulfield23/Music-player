@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -15,7 +14,7 @@ import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
     final private Font mainFont = new Font("Roboto", Font.BOLD, 18);
-    JTextField searchField;
+
     static MusicPlayer musicPlayer = new MusicPlayer();
     static long pausedTime;
     static JLabel[] songList;
@@ -27,21 +26,6 @@ public class MainFrame extends JFrame {
         JLabel playerTitle = new JLabel("Music player");
         playerTitle.setFont(mainFont);
         // search field
-        JPanel searchForm = new JPanel();
-        JButton searchBtn = new JButton("Search");
-        searchBtn.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-                musicPlayer.searchSong(arrOfSongs, searchField.getText(), myFrame);
-            }
-        });
-        searchField = new JTextField();
-        searchField.setFont(mainFont);
-
-        searchBtn.setSize(50, 50);
-        searchBtn.setBounds(10, 10, 5, 5);
-        searchForm.setLayout(new GridLayout(1, 2, 5, 5));
-        searchForm.add(searchField);
-        searchForm.add(searchBtn);
 
         // Music lists
         JPanel listForm = new JPanel();
@@ -66,7 +50,6 @@ public class MainFrame extends JFrame {
         formPanel.setLayout(new GridLayout(2, 1, 5, 5));
         formPanel.setOpaque(false);
         formPanel.add(playerTitle);
-        formPanel.add(searchForm);
 
         // South - three buttons with function
         JButton btnPause = new JButton("Pause");
@@ -92,24 +75,12 @@ public class MainFrame extends JFrame {
                 musicPlayer.repeatSong();
             }
         });
-        JButton btnSort = new JButton(reversed == false ? "Sort Z-A" : "Sort A-Z");
-        btnPause.setFont(mainFont);
-
-        btnSort.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-
-                reversed = !reversed;
-                btnSort.setText(reversed == false ? "Sort Z-A" : "Sort A-Z");
-                musicPlayer.sortSongs(arrOfSongs, myFrame, reversed);
-            }
-        });
 
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new GridLayout(1, 3, 5, 5));
+        buttonsPanel.setLayout(new GridLayout(1, 2, 5, 5));
         buttonsPanel.setOpaque(false);
         buttonsPanel.add(btnPause);
         buttonsPanel.add(btnRepeat);
-        buttonsPanel.add(btnSort);
 
         // main panel - north, center, south
         JPanel mainPanel = new JPanel();
