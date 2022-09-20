@@ -1,3 +1,5 @@
+package labb5;
+
 import java.awt.*;
 
 import javax.swing.BorderFactory;
@@ -101,13 +103,11 @@ public class MainFrame extends JFrame {
     }
 
     public static JLabel addPlaySongFunction(final JLabel songTitle) {
-        System.out.println(songTitle.getText() + " is song title");
 
         songTitle.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 pausedTime = 0;
                 String song = songTitle.getText();
-                System.out.println(songTitle.getText());
 
                 musicPlayer.loadMusic(song);
                 System.out.println(song + " is playing");
@@ -116,4 +116,7 @@ public class MainFrame extends JFrame {
         return songTitle;
     }
 
+    public JLabel[] getSonglists() {
+        return songList;
+    }
 }
