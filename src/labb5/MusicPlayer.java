@@ -70,7 +70,6 @@ public class MusicPlayer {
     public String[] getArrSongs(String filePath) {
         File folder = new File(filePath);
         File[] listOfFiles = folder.listFiles();
-
         String[] listOfMusic = new String[listOfFiles.length];
 
         for (int i = 0; i < listOfFiles.length; i++) {
